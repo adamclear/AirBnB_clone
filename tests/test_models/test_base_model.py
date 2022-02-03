@@ -86,6 +86,13 @@ class TestBaseClass(unittest.TestCase):
         self.assertEqual(User1_dict['updated_at'],
                          self.User1.updated_at.isoformat())
         self.assertEqual(User1_dict['id'], self.User1.id)
+        #test looking for attr that doesn't exist
+        with self.assertRaises(AttributeError):
+            getattr(self.User1, 'NonExistentKey')
+        #set attr and test it
+        self.User1.Job = "Code Monkey"
+        self.assertTrue(self.User1.Job, exists)
+
 
 if __name__ == "__main__":
     unittest.main()
