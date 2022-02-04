@@ -6,6 +6,7 @@ from genericpath import exists
 import unittest
 from models.base_model import BaseModel
 import pep8
+from models import storage
 
 
 class TestBaseClass(unittest.TestCase):
@@ -25,6 +26,7 @@ class TestBaseClass(unittest.TestCase):
         """
         del self.User1
         del self.User2
+        storage.save()
 
     def test_pep8(self):
         """
@@ -57,6 +59,10 @@ class TestBaseClass(unittest.TestCase):
         self.assertNotEqual(self.User1.created_at, self.User2.created_at)
         # Test updated datetime
         self.assertEqual(self.User1.created_at, self.User1.updated_at)
+        # Test using kwargs
+        User3_dict = {'id': 100}
+        self.User3 = BaseModel(**User3_dict)
+        self.assertEqual(self.User3.id, 100)
 
     def test_str(self):
         """
@@ -92,7 +98,6 @@ class TestBaseClass(unittest.TestCase):
         #set attr and test it
         self.User1.Job = "Code Monkey"
         self.assertTrue(self.User1.Job, exists)
-
 
 if __name__ == "__main__":
     unittest.main()
