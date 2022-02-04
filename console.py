@@ -9,6 +9,7 @@ from models.base_model import BaseModel
 from models.engine.file_storage import FileStorage
 import json
 from models import storage
+valid_inst = {'BaseModel': BaseModel}
 
 
 class HBNBCommand(cmd.Cmd):
@@ -17,20 +18,27 @@ class HBNBCommand(cmd.Cmd):
     """
     prompt = '(hbnb) '
 
-    def do_quit(self, arg):
+    def do_quit(self, *args):
         """
         This method exits the interpreter if the user
         types the command "quit".
         """
         quit()
 
-    def do_EOF(self, arg):
+    def do_EOF(self, *args):
         """
         This method exits the interpreter if the user
         types the EOF command (CTRL+D).
         """
         print()
-        return True
+        raise SystemExit
+
+    def emptyline(self):
+        """
+        This method eliminates the newline from
+        emptyline + ENTER.
+        """
+        pass
 
     def do_create(self, arg):
         """
@@ -39,8 +47,7 @@ class HBNBCommand(cmd.Cmd):
         """
         if len(arg) < 1:
             print("** class name missing **")
-        valid_inst = {'BaseModel': BaseModel}
-        if arg in valid_inst.keys():
+        elif arg in valid_inst.keys():
             new = valid_inst[arg]()
             new.save()
             print(new.id)
@@ -52,20 +59,19 @@ class HBNBCommand(cmd.Cmd):
         This method prints the string representation of
         an object based on the class name and id.
         """
+        args2 = args.split(' ')
         if args == "":
             print("** class name missing **")
-        else:
-            args2 = args.split(' ')
+        elif args2[0] in valid_inst.keys():
             if len(args2) < 2:
                 print("** instance id missing **")
-        valid_inst = {'BaseModel': BaseModel}
-        if args2[0] in valid_inst.keys():
-            item_search = args2[0] + "." + args2[1]
-            item_all = storage.all()
-            if item_search in item_all:
-                print(item_all[item_search])
             else:
-                print("** no instance found **")
+                item_search = args2[0] + "." + args2[1]
+                item_all = storage.all()
+                if item_search in item_all:
+                    print(item_all[item_search])
+                else:
+                    print("** no instance found **")
         else:
             print("** class doesn't exist **")
 
@@ -75,21 +81,20 @@ class HBNBCommand(cmd.Cmd):
         class name and id, and saves the change into
         the JSON file.
         """
+        args2 = args.split(' ')
         if args == "":
             print("** class name missing **")
-        else:
-            args2 = args.split(' ')
+        elif args2[0] in valid_inst.keys():
             if len(args2) < 2:
-                print(" instance id missing **")
-        valid_inst = {'BaseModel': BaseModel}
-        if args2[0] in valid_inst.keys():
-            item_search = args2[0] + "." + args2[1]
-            item_all = storage.all()
-            if item_search in item_all:
-                del item_all[item_search]
-                storage.save()
+                print("** instance id missing **")
             else:
-                print("** no instance found **")
+                item_search = args2[0] + "." + args2[1]
+                item_all = storage.all()
+                if item_search in item_all:
+                    del item_all[item_search]
+                    storage.save()
+                else:
+                    print("** no instance found **")
         else:
             print("** class doesn't exist **")
 
@@ -100,7 +105,6 @@ class HBNBCommand(cmd.Cmd):
         """
         if arg == "":
             print("** class name missing **")
-        valid_inst = {'BaseModel': BaseModel}
         if arg in valid_inst.keys():
             print("valid class name")
             item_all = storage.all()

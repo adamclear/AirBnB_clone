@@ -5,6 +5,7 @@ This module is the unittest file for the class: BaseModel.
 from genericpath import exists
 import unittest
 from models.base_model import BaseModel
+from models.engine.file_storage import FileStorage
 import pep8
 from models import storage
 
@@ -19,6 +20,8 @@ class TestBaseClass(unittest.TestCase):
         """
         self.User1 = BaseModel()
         self.User2 = BaseModel()
+        User3_dict = self.User1.to_dict()
+        self.User3 = BaseModel(**User3_dict)
 
     def tearDown(self):
         """
@@ -26,6 +29,7 @@ class TestBaseClass(unittest.TestCase):
         """
         del self.User1
         del self.User2
+        del self.User3
         storage.save()
 
     def test_pep8(self):
@@ -45,6 +49,9 @@ class TestBaseClass(unittest.TestCase):
         self.assertTrue(len(BaseModel.__doc__) >= 1)
         # Method docstrings
         self.assertTrue(len(BaseModel.__init__.__doc__) >= 1)
+        self.assertTrue(len(BaseModel.__str__.__doc__) >= 1)
+        self.assertTrue(len(BaseModel.save.__doc__) >= 1)
+        self.assertTrue(len(BaseModel.to_dict.__doc__) >= 1)
 
     def test_init(self):
         """
@@ -60,9 +67,10 @@ class TestBaseClass(unittest.TestCase):
         # Test updated datetime
         self.assertEqual(self.User1.created_at, self.User1.updated_at)
         # Test using kwargs
-        User3_dict = {'id': 100}
-        self.User3 = BaseModel(**User3_dict)
-        self.assertEqual(self.User3.id, 100)
+        self.assertEqual(self.User3.id, self.User1.id)
+        self.assertEqual(self.User3.created_at, self.User1.created_at)
+        self.assertEqual(self.User3.updated_at, self.User1.updated_at)
+        self.assertEqual(self.User3.__class__, self.User1.__class__)
 
     def test_str(self):
         """
