@@ -7,6 +7,7 @@ from datetime import datetime
 import models
 time = "%Y-%m-%dT%H:%M:%S.%f"
 
+
 class BaseModel:
     """
     This class is the superclass for all subsequent classes for
@@ -18,16 +19,16 @@ class BaseModel:
         Initializes the object
         """
         if kwargs:
-            self.__dict__ = kwargs
-            if "created_at" in kwargs:
-                self.created_at = datetime.strptime(kwargs["created_at"], time)
-            if "updated_at" in kwargs:
-                self.updated_at = datetime.strptime(kwargs["updated_at"], time)
+            for key, value in kwargs.items():
+                if key == 'created_at' or key == 'updated-at':
+                    value = datetime.strptime(key, time)
+                if key != '__class__':
+                    setattr(self, key, value)
         else:
             self.id = str(uuid.uuid4())
             self.created_at = datetime.now()
             self.updated_at = self.created_at
-            models.storage.new(self)
+        models.storage.new(self)
 
     def __str__(self):
         """
@@ -48,7 +49,7 @@ class BaseModel:
         Returns a dictionary of all keys/values of the object.
         """
         new_dict = self.__dict__.copy()
-        new_dict["created_at"] = new_dict["created_at"].strftime(time)
-        new_dict["updated_at"] = new_dict["updated_at"].strftime(time)
+        new_dict["created_at"] = self.created_at.isoformat()
+        new_dict["updated_at"] = self.updated_at.isoformat()
         new_dict["__class__"] = self.__class__.__name__
         return new_dict
