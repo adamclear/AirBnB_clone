@@ -19,11 +19,15 @@ class BaseModel:
         Initializes the object
         """
         if kwargs:
-            self.__dict__ = kwargs
-            if "created_at" in kwargs:
-                self.created_at = datetime.strptime(kwargs["created_at"], time)
-            if "updated_at" in kwargs:
-                self.updated_at = datetime.strptime(kwargs["updated_at"], time)
+            for key in kwargs:
+                if "created_at" in kwargs:
+                    self.created_at = datetime.strptime(kwargs["created_at"],
+                                                        time)
+                if "updated_at" in kwargs:
+                    self.updated_at = datetime.strptime(kwargs["updated_at"],
+                                                        time)
+                if key != ('__class__'):
+                    setattr(self, key, kwargs[key])
         else:
             self.id = str(uuid.uuid4())
             self.created_at = datetime.now()
