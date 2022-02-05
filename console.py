@@ -104,34 +104,17 @@ class HBNBCommand(cmd.Cmd):
         of all objects based on the class name given.
         """
         if arg == "":
+            print("no class name")
             for k, v in storage.all().items():
                 print(v)
-            return
-        if arg in valid_inst.keys():
-            for k, v in storage.all().items():
-                print(v)
-        else:
+        elif arg not in valid_inst.keys():
             print("** class doesn't exist **")
-
-    # def do_all(self, arg):
-    #     """prints all instances if they exist"""
-    #     arguments = arg.split()
-    #     instance_list = []
-    #     if len(arguments) == 0:
-    #         for v in storage.all().values():
-    #             instance_list.append(str(v))
-    #         print("[", end="")
-    #         print(", ".join(instance_list), end="")
-    #         print("]")
-    #     elif arguments[0] in valid_inst:
-    #         for keys in storage.all():
-    #             if arguments[0] in keys:
-    #                 instance_list.append(str(storage.all()[keys]))
-    #         print("[", end="")
-    #         print(", ".join(instance_list), end="")
-    #         print("]")
-    #     else:
-    #         print("** class doesn't exist **")
+        else:
+            print("gave class")
+            args = arg.split()
+            for k, v in storage.all().items():
+                if args[0] == v.__class__.__name__:
+                    print(v)
 
 
 if __name__ == '__main__':
