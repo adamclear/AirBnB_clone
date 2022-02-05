@@ -101,16 +101,15 @@ class HBNBCommand(cmd.Cmd):
     def do_all(self, arg):
         """
         This method prints a string representation
-        of all objects based on the class name given.
+        of all objects based on the class name given
+        or all objects if no class given.
         """
         if arg == "":
-            print("no class name")
             for k, v in storage.all().items():
                 print(v)
         elif arg not in valid_inst.keys():
             print("** class doesn't exist **")
         else:
-            print("gave class")
             args = arg.split()
             for k, v in storage.all().items():
                 if args[0] == v.__class__.__name__:
