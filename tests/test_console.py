@@ -150,7 +150,7 @@ class TestConsole(unittest.TestCase):
         # Invalid ID
         inst_not_found_disp = "** no instance found **\n"
         with patch("sys.stdout", new=StringIO()) as disp:
-            self.con.do_destroy('BaseModel yep')
+            self.con.do_destroy('BaseModel nope')
             self.assertEqual(disp.getvalue(), inst_not_found_disp)
         # Working properly
         self.User1 = BaseModel(id='yep')
@@ -166,3 +166,52 @@ class TestConsole(unittest.TestCase):
         else:
             result = True
         self.assertEqual(result, True)
+
+    def test_all(self):
+        """
+        Testing all.
+        """
+        # No argument
+        with patch("sys.stdout", new=StringIO()) as disp:
+            self.con.do_all('')
+            self.assertTrue(len(disp.getvalue()) > 1)
+        # With BaseModel as arg
+        with patch("sys.stdout", new=StringIO()) as disp:
+            self.con.do_all('BaseModel')
+            self.assertTrue(len(disp.getvalue()) > 20)
+        # Class doesn't exist
+        no_class_display = "** class doesn't exist **\n"
+        with patch("sys.stdout", new=StringIO()) as disp:
+            self.con.do_all('NotBaseModel')
+            self.assertEqual(disp.getvalue(), no_class_display)
+
+    def test_update(self):
+        """
+        Testing update.
+        """
+        # No argument
+        class_missing_display = "** class name missing **\n"
+        with patch("sys.stdout", new=StringIO()) as disp:
+            self.con.do_update('')
+            self.assertEqual(disp.getvalue(), class_missing_display)
+        # No ID
+        id_missing_display = "** instance id missing **\n"
+        with patch("sys.stdout", new=StringIO()) as disp:
+            self.con.do_update('BaseModel')
+            self.assertEqual(disp.getvalue(), id_missing_display)
+        # No attribute
+        att_missing_display = "** attribute name missing **\n"
+        with patch("sys.stdout", new=StringIO()) as disp:
+            self.con.do_update('BaseModel yep')
+            self.assertEqual(disp.getvalue(), att_missing_display)
+        # No value
+        value_missing_display = "** value missing **\n"
+        with patch("sys.stdout", new=StringIO()) as disp:
+            self.con.do_update('BaseModel yep "yep"')
+            self.assertEqual(disp.getvalue(), value_missing_display)
+        # Class doesn't exist
+        no_class_display = "** class doesn't exist **\n"
+        with patch("sys.stdout", new=StringIO()) as disp:
+            self.con.do_update('NotBaseModel yep yep "yep"')
+            self.assertEqual(disp.getvalue(), no_class_display)
+        # Working properly

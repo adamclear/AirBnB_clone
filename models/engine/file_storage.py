@@ -3,7 +3,7 @@
 This module contains the class: FileStorage
 """
 import json
-from models.base_model import BaseModel
+import models
 
 
 class FileStorage:
@@ -38,8 +38,8 @@ class FileStorage:
         serializes __objects to the JSON file (path: __file_path)
         """
         json_objects = {}
-        for key in self.__objects:
-            json_objects[key] = self.__objects[key].to_dict()
+        for key, value in self.__objects.items():
+            json_objects[key] = value.to_dict()
         with open(self.__file_path, 'w') as f:
             json.dump(json_objects, f)
 
@@ -50,7 +50,8 @@ class FileStorage:
         try:
             with open(self.__file_path, 'r') as f:
                 jo = json.load(f)
-            for key in jo:
-                self.__objects[key] = eval(jo[key]["__class__"])(**jo[key])
+                for key in jo:
+                    self.__objects[key] = getattr(
+                        models, jo[key]['__class__'])(**jo[key])
         except Exception:
             pass

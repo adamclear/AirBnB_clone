@@ -6,10 +6,17 @@ command interpreter.
 import cmd
 from multiprocessing.sharedctypes import Value
 from models.base_model import BaseModel
+from models.user import User
+from models.state import State
+from models.city import City
+from models.amenity import Amenity
+from models.place import Place
+from models.review import Review
 from models.engine.file_storage import FileStorage
-import json
 from models import storage
-valid_inst = {'BaseModel': BaseModel}
+valid_inst = {'BaseModel': BaseModel, 'User': User, 'State': State,
+              'City': City, 'Amenity': Amenity, 'Place': Place,
+              'Review': Review}
 
 
 class HBNBCommand(cmd.Cmd):
@@ -105,16 +112,40 @@ class HBNBCommand(cmd.Cmd):
         or all objects if no class given.
         """
         if arg == "":
-            for k, v in storage.all().items():
-                print(v)
+            for k in storage.all():
+                print([str(storage.all()[k])])
         elif arg not in valid_inst.keys():
             print("** class doesn't exist **")
         else:
-            args = arg.split()
             for k, v in storage.all().items():
-                if args[0] == v.__class__.__name__:
-                    print(v)
+                if arg == v.__class__.__name__:
+                    print([str(storage.all()[k])])
 
+    def do_update(self, args):
+        """
+        This method updates an instance based on the class
+        name and id.
+        """
+        args2 = args.split(' ')
+        if not args:
+            print("** class name missing **")
+        elif len(args2) < 2:
+            print("** instance id missing **")
+        elif len(args2) < 3:
+            print("** attribute name missing **")
+        elif len(args2) < 4:
+            print("** value missing **")
+        elif args2[0] not in valid_inst:
+            print("** class doesn't exist **")
+        else:
+            item_search = args2[0] + "." + args2[1]
+            item_all = storage.all()
+            if item_search in item_all:
+                setattr(storage.all()[item_search],
+                        args2[2], args2[3].strip('\'"'))
+                storage.save()
+            else:
+                print("** no instance found **")
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
