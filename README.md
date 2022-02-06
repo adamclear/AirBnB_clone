@@ -2,7 +2,7 @@
 
 <br><br>
 # ABOUT:
-This project is the first stage of creating an AirBNB clone for Holberton's Higher Level. In this project we build a custom command-line interface for data management.
+This project is the first stage of creating an AirBNB clone for Holberton's Higher Level Programming course. In this project we build a custom command-line interface for data management using all the skills we've learned in Python.
 <br><br>
 # Console
 The console is the command line interace which allows user to create allowed classes, delete classes, and add attributes to classes. This console works in both interactive and non-interacive mode.
@@ -19,7 +19,7 @@ First launch the console:
 
 Once launced you will be presented with a new (hbnb) prompt ready to accept commands.
 
-example:<br>
+Example:<br>
 ```
 (hbnb) create BaseModel
 ```
@@ -34,7 +34,7 @@ AirBnb_clone$ echo "create BaseModel" | ./console.py
 
 # Commands
 
-## help - shows help
+## help -- shows help
 ### Usage:
 For a list of documented commands:<br>
 > help
@@ -47,7 +47,7 @@ Example:<br>
 (hbnb) help create
 ```
 
-## create - create an allowed class
+## create -- create an allowed class
 ### Usage:
 > create 'class name'<br>
 
@@ -56,7 +56,7 @@ Example:<br>
 (hbnb) create BaseModel
 ```
 
-## destroy - delete a specific instance of a class
+## destroy -- delete a specific instance of a class
 ### Usage:
 > destroy 'class name' 'ID'<br>
 
@@ -65,13 +65,13 @@ Example:<br>
 (hbnb) destroy BaseModel 4b109f3d-0f26-4f12-bd70-59c236afb7ed
 ```
 
-## show -- print a string reprenstaion of an objected
+## show -- print a string reprenstaion of an object
 ### Usage:
 > show 'class name' 'ID'<br>
 
 Example:<br>
 ```
-(hbnb) destroy BaseModel 4b109f3d-0f26-4f12-bd70-59c236afb7ed
+(hbnb) show BaseModel 4b109f3d-0f26-4f12-bd70-59c236afb7ed
 ```
 
 ## all -- print a string reprenstaion of all objects or all objects of a specific class
@@ -93,11 +93,11 @@ Example:<br>
 
 Example:<br>
 ```
-update BaseModel 4b109f3d-0f26-4f12-bd70-59c236afb7ed email "johndoe@email.com"
+(hbnb) update BaseModel 4b109f3d-0f26-4f12-bd70-59c236afb7ed email "johndoe@email.com"
 ```
 
 ## quit -- quit the console
-### usage
+### Usage:
 > quit
 
 Example:<br>
@@ -106,7 +106,7 @@ Example:<br>
 ```
 
 ## EOF -- quit the console
-### Usage
+### Usage:
 Press Ctrl + Z on keyboard<br>
 <br>
 
