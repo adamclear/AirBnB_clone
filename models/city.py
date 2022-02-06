@@ -4,6 +4,7 @@ This module contains the subclass: City
 """
 from models.base_model import BaseModel
 
+
 class City(BaseModel):
     """
     The City class is a subclass of BaseModel.

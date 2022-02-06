@@ -49,7 +49,7 @@ class TestFilestorageClass(unittest.TestCase):
         self.assertTrue(len(FileStorage.new.__doc__) >= 1)
         self.assertTrue(len(FileStorage.save.__doc__) >= 1)
         self.assertTrue(len(FileStorage.reload.__doc__) >= 1)
-    
+
     def test_all(self):
         """
         Testing all.
