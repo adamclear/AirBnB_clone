@@ -4,6 +4,7 @@ This module contains the subclass: Place
 """
 from models.base_model import BaseModel
 
+
 class Place(BaseModel):
     """
     The Place class is a subclass of BaseModel.
