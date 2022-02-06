@@ -83,5 +83,6 @@ class TestFilestorageClass(unittest.TestCase):
         """
         Testing reload.
         """
-        self.fsUser.reload()
-        self.assertTrue(storage.all() is not Empty)
+        FileStorage.clear()
+        storage.reload()
+        self.assertTrue(len(storage.all()) > 0)
