@@ -6,7 +6,7 @@ from models.base_model import BaseModel
 
 class City(BaseModel):
     """
-    This class is a subclass of BaseModel.
+    The City class is a subclass of BaseModel.
     """
     state_id = ""
     name = ""

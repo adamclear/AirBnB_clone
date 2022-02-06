@@ -6,6 +6,6 @@ from models.base_model import BaseModel
 
 class Amenity(BaseModel):
     """
-    This class is a subclass of BaseModel.
+    The Amenity class is a subclass of BaseModel.
     """
     name = ""
