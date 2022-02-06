@@ -8,6 +8,7 @@ import pep8
 from genericpath import exists
 from models.base_model import BaseModel
 import os.path
+from models import storage
 
 
 class TestFilestorageClass(unittest.TestCase):
@@ -21,6 +22,7 @@ class TestFilestorageClass(unittest.TestCase):
         self.User1 = BaseModel()
         self.User2 = BaseModel()
         self.fsUser = FileStorage()
+        storage.save()
 
     def tearDown(self):
         """
@@ -28,6 +30,7 @@ class TestFilestorageClass(unittest.TestCase):
         """
         del self.User1
         del self.User2
+        storage.save()
 
     def test_pep8(self):
         """
@@ -79,6 +82,5 @@ class TestFilestorageClass(unittest.TestCase):
         """
         Testing reload.
         """
-        FileStorage.clear()
         self.fsUser.reload()
         self.assertTrue(len(self.fsUser.all()) > 0)
