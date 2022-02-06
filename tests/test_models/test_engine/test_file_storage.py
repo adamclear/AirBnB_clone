@@ -2,6 +2,7 @@
 """
 This module is the unittest for the class: Filestorage.
 """
+from queue import Empty
 from models.engine.file_storage import FileStorage
 import unittest
 import pep8
@@ -83,4 +84,4 @@ class TestFilestorageClass(unittest.TestCase):
         Testing reload.
         """
         self.fsUser.reload()
-        self.assertTrue(len(self.fsUser.all()) > 0)
+        self.assertTrue(storage.all() is not Empty)
