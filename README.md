@@ -1,7 +1,7 @@
 # AirBnB_clone
 
 <br><br>
-# ABOUT:
+# About
 This project is the first stage of creating an AirBNB clone for Holberton's Higher Level Programming course. In this project we build a custom command-line interface for data management using all the skills we've learned in Python.
 <br><br>
 # Console
@@ -27,6 +27,7 @@ Example:<br>
 ## Non-Interacive Mode<br>
 
 To use in non-interactive mode echo the commands and pipe it to console.py
+
 Example:<br>
 ```
 AirBnb_clone$ echo "create BaseModel" | ./console.py
@@ -65,7 +66,7 @@ Example:<br>
 (hbnb) destroy BaseModel 4b109f3d-0f26-4f12-bd70-59c236afb7ed
 ```
 
-## show -- print a string reprenstaion of an object
+## show -- print a string representation of an object
 ### Usage:
 > show 'class name' 'ID'<br>
 
@@ -74,7 +75,7 @@ Example:<br>
 (hbnb) show BaseModel 4b109f3d-0f26-4f12-bd70-59c236afb7ed
 ```
 
-## all -- print a string reprenstaion of all objects or all objects of a specific class
+## all -- print a string representation of all objects or all objects of a specific class
 ### Usage:
 To show all objects:<br>
 > all
@@ -93,7 +94,7 @@ Example:<br>
 
 Example:<br>
 ```
-(hbnb) update BaseModel 4b109f3d-0f26-4f12-bd70-59c236afb7ed email "johndoe@email.com"
+(hbnb) update user x9247f3d-0g51-4f12-bd70-59c236afb7ls email "johndoe@email.com"
 ```
 
 ## quit -- quit the console
@@ -110,8 +111,8 @@ Example:<br>
 Press Ctrl + Z on keyboard<br>
 <br>
 
-# CLASSES
-## LIST OF ALLOWED CLASSES
+# Classes
+## List of allowed classes
 ```
 Amenity
 BaseModel
