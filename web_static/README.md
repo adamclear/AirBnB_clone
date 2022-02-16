@@ -1,0 +1,1 @@
+This lesson is all about HTML and CSS for the HBNB project.
