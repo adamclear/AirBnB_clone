@@ -22,14 +22,13 @@
     opacity: 90%;
 }
 
-.filters .locations, .filters .amenities {
+.locations, .amenities {
     height: 100%;
     width: 25%;
-    text-align: left;
-    margin-left: 5%;
+    margin-left: auto;
 }
 
-.filters .locations {
+.locations {
     border-right: 1px solid #DDDDDD;
 }
 
