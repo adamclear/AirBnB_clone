@@ -20,6 +20,7 @@
     border-radius: 4px;
     text-align: center;
     position: relative;
+    z-index: -1;
 }
 
 .title {
